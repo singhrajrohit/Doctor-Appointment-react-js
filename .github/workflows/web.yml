@@ -1,4 +1,4 @@
-name: Node.js CI/CD-AWS-deploy
+name: CI/CD-AWS-deploy
 
 on:
   push:
