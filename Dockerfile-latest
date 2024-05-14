@@ -25,7 +25,7 @@ RUN npm install --production
 # Install serve globally
 RUN npm install -g serve
 EXPOSE 3000
-#CMD ["node", "build/index.html"]
+#CMD ["node", "build/index.js"]
 
 # Specify the command to start serve and serve the build directory
 CMD ["serve", "-s", "build", "-l", "3000"]
