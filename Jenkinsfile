@@ -28,15 +28,22 @@ pipeline {
             }
         }*/
 stage('Sonar Code Analysis') {
-      environment {
-        SONAR_URL = "http://57.180.65.82:9000"
-      }
-      steps {
-        withCredentials([string(credentialsId: 'SonarqubeID' , variable: 'SONAR_AUTH_TOKEN')]) {
-          sh ' sonar-scanner -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
+            environment {
+                SONAR_URL = "http://57.180.65.82:9000"
+            }
+            steps {
+                withCredentials([string(credentialsId: 'SonarqubeID', variable: 'SONAR_AUTH_TOKEN')]) {
+                    script {
+                        def scannerHome = tool 'SonarQubeScanner'  // Ensure SonarQube Scanner tool is configured in Jenkins
+                        sh "${scannerHome}/bin/sonar-scanner " +
+                           "-Dsonar.projectKey=Doctor-Appointment-react-js " +
+                           "-Dsonar.sources=. " +
+                           "-Dsonar.host.url=${SONAR_URL} " +
+                           "-Dsonar.login=${SONAR_AUTH_TOKEN}"
+                    }
+                }
+            }
         }
-      }
-    }
     
     stage('Build and Push Docker Image') {
       environment {
