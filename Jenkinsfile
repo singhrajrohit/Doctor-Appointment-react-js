@@ -27,6 +27,16 @@ pipeline {
                 sh 'npm run build'
             }
         }*/
+stage('Sonar Code Analysis') {
+      environment {
+        SONAR_URL = "http://18.177.139.35:9000"
+      }
+      steps {
+        withCredentials([string(credentialsId: 'SonarqubeID' , variable: 'SONAR_AUTH_TOKEN')]) {
+          sh ' mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
+        }
+      }
+    }
     
     stage('Build and Push Docker Image') {
       environment {
