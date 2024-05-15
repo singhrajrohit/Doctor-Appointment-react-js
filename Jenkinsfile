@@ -29,11 +29,11 @@ pipeline {
         }*/
 stage('Sonar Code Analysis') {
       environment {
-        SONAR_URL = "http://18.177.139.35:9000"
+        SONAR_URL = "http://57.180.65.82:9000"
       }
       steps {
         withCredentials([string(credentialsId: 'SonarqubeID' , variable: 'SONAR_AUTH_TOKEN')]) {
-          sh ' mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
+          sh ' sonar-scanner -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
         }
       }
     }
@@ -57,7 +57,7 @@ stage('Sonar Code Analysis') {
     stage('Pull and Deploy'){
         environment {
         DOCKER_IMAGE = "singhrajrohit/doctor-appointment:${BUILD_NUMBER}"
-        CONTAINER_NAME = "secret-santa-app"
+        CONTAINER_NAME = "doctor-appointment-app"
         PORT_MAPPING = "2024:3000" // Adjust port mapping as needed
     }
             steps {
