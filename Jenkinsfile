@@ -32,7 +32,7 @@ stage('Sonar Code Analysis') {
                 SONAR_URL = "http://57.180.65.82:9000"
             }
             steps {
-                withCredentials([string(credentialsId: 'SonarqubeID', variable: 'SONAR_AUTH_TOKEN')]) {
+                withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
                     script {
                         def scannerHome = tool 'SonarQubeScanner'  // Ensure SonarQube Scanner tool is configured in Jenkins
                         sh "${scannerHome}/bin/sonar-scanner " +
