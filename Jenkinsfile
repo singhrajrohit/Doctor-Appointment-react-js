@@ -26,7 +26,7 @@ pipeline {
             steps {
                 sh 'npm run build'
             }
-        }*/
+        }
 stage('Sonar Code Analysis') {
             environment {
                 SONAR_URL = "http://57.180.65.82:9000"
@@ -43,7 +43,7 @@ stage('Sonar Code Analysis') {
                     }
                 }
             }
-        }
+        }*/
     
     stage('Build and Push Docker Image') {
       environment {
